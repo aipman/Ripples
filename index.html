@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>涟漪思维导图</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--导图模块-->
+    <link type="text/css" rel="stylesheet" href="style/jsmind.css" />
+    <style type="text/css">
+        li{margin-top:2px; margin-bottom:2px;}
+        //button{width:140px;}
+        select{width:140px;}
+        #layout{width:1230px;}
+        #jsmind_nav{width:210px;height:600px;border:solid 1px #ccc;overflow:auto;float:left;}
+        .file_input{width:300px;}
+        button.sub{width:100px;}
+        #jsmind_container{
+            float:left;
+            width:750px;
+            height:600px;
+            border:solid 1px #ccc;
+            //background:#f4f4f4;
+        }
+		img.avatar {
+        width: 34px;
+        height: 34px;
+       //position: absolute;
+        left: 0;
+        bottom: 0;
+        border: 1px solid #000;
+        border-radius: 100%;
+		//img-circle img-responsive 
+        }
+		.details {
+        padding: 0 16px;
+        float: left;
+        border-radius: 30px 30px 30px 0;
+        background: #222;
+        }
+		.Message-list{
+		list-style-type: disc;
+        margin-top: 6px;
+        padding-left: 42px;
+        position: relative;
+        }
+	.ulcontent {
+	height: 300px;
+  	max-height: 300px;
+ 	overflow: auto;
+	}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <!--导航栏开始-->
+   <div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+		  <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+				<div class="navbar-header">
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">涟漪Ripples</a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							 <a href="#">房间号：</a>
+						</li>
+
+					</ul>
+
+					</ul>
+				  <form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" />
+						</div> <button type="submit" class="btn btn-default">进入</button>
+					</form>
+				</div>
+				
+			</nav>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="btn-group">
+				 <button id="newmind" class="btn btn-default" type="button"><em class="glyphicon glyphicon-file"></em> 新建</button>               
+                 <button id="openfile" class="btn btn-default" type="button"><em class="glyphicon glyphicon-open"></em> 打开</button>
+                 <button id="savefile" class="btn btn-default" type="button"><em class="glyphicon glyphicon-save"></em> 保存</button>
+                 <input id="file_input" class="file_input" type="file" style="display"/>
+			</div>
+		</div>
+		<div class="col-md-12 column">
+			<div class="btn-group">
+				 <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-chevron-left"></em> 撤销</button> 
+                 <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-chevron-right"></em> 重做</button>
+                 <button id="add_node"    class="btn btn-default" type="button"><em class="glyphicon glyphicon-plus"></em> 添加节点</button>
+                 <button id="remove_node" class="btn btn-default" type="button"><em class="glyphicon glyphicon-remove"></em> 删除节点</button>
+                 <button id="begin_edit"  class="btn btn-default" type="button"><em class="glyphicon glyphicon-edit"></em> 编辑</button>
+                 <button id="zoom-in-button"  onclick="zoomIn();"  class="btn btn-default" type="button"><em class="glyphicon glyphicon-zoom-in"></em> 放大</button>
+                 <button id="zoom-out-button" onclick="zoomOut();" class="btn btn-default" type="button"><em class="glyphicon glyphicon-zoom-out"></em> 缩小</button>
+			</div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-8 column">
+		  <div id="jsmind_container"></div><!--思维导图模块 -->
+            
+		</div>
+		<div class="col-md-4 column">
+			<div class="row clearfix">
+				<div class="col-md-2 column" style="height: 300">
+				</div>
+				<div class="col-md-10 column">
+				  <div id="demo" class="Message-list scroll-ul"> <!--scroll-text -->
+                    <ul id="demo1" class="ulcontent list-unstyled">
+                      <li>
+						<img class="avatar" width="50px" height="50px" src="jquery\demos\img\normal_725.png"> 
+						<!-- <div class="details"> -->
+						<em class="name">用户名1:</em>
+						<p class="comment">消息消息消息消息消息消息</p>
+						<!-- </div> -->
+	                  </li>
+                      <li>
+						<img class="avatar" width="50px" height="50px" src="jquery\demos\img\normal_840.png"> 
+						
+						<em class="name">用户名3:</em>
+						<p class="comment">消息<br>1112</p>
+					 </li>
+                    </ul>
+                  </div>
+				</div>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<div class="btn-group">
+                         <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-picture"></em> [*图片]</button>
+                         <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-camera"></em> [*相机]</button>
+                         <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-paperclip"></em> [*附件]</button>
+                         <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-asterisk"></em> [*表情]</button>
+					</div>
+				</div>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<div class="input-group">
+						<input id="intext" type="text" class="form-control">
+							<span class="input-group-btn">
+								<button id="sendmessage" class="btn btn-default" type="button">发送</button>
+							</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+  <div class="container">
+	  <div class="col-md-12 column ">
+	  			<div class="btn-group">
+				 <button id="addli" class="btn btn-default" type="button"><em class="glyphicon glyphicon-chevron-left"></em> 测试</button> 
+			</div>
+	  </div>
+	  	  <div class="col-md-12 column ">
+	  		<ul id="text">
+	  		
+		    </ul>
+	  </div>
+	  
+	  </div>
+
+    <!--文档基础支持-->
+    <script type="text/javascript" src="js/jsmind.js"></script>
+    <script type="text/javascript" src="js/jsmind.draggable.js"></script>
+    <script src="jquery/jquery.scrollbox.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!--导图模块-->
+    <script type="text/javascript">/*=================================js===================================================*/
+		mind_string1="";
+		
+		$(document).ready(function(){
+		//var title = $("b.facility"); 
+		var title = $('#jsmind_container');//the element I want to monitor   jsmind_container
+		title.bind('DOMNodeInserted', function(e) { 
+			//alert('element now contains: ' + $(e.target).html()); 
+			//if($(e.target).html() != '' && $(e.target).html() !='-') var len = document.getElementById('text').innerHTML+='<li>'+$(e.target).html()+'</li>'; 
+			var mind_data = jm.get_data('node_array');
+			console.warn(mind_data);//warn
+        	var mind_string = jsMind.util.json.json2string(mind_data);
+			//document.getElementById('text').innerHTML=mind_string;
+                  var index = mind_string.indexOf(mind_string1);
+                  var diff = mind_string.substr(index + mind_string1.length + 1);
+			//document.getElementById('text').innerHTML+=diff+"<br>";
+			//for(var i=0;i<arguments.callee.caller.name.length;i++){
+			document.getElementById('text').innerHTML+=arguments.callee.caller.name+"<br>";
+                 // alert(diff);   arguments.callee.caller.name
+			 mind_string1=mind_string;
+			//trace();
+			//console.warn( $(e.target).html() );
+			}); 
+		}); 
+		
+		function trace (count) {
+        var caller = arguments.callee.caller;
+        var i = 0;
+        count = count || 10;
+        console.log("***----------------------------------------  ** " + (i + 1));
+        while (caller && i < count) {
+            console.log(caller.toString());
+            caller = caller.caller;
+            i++;
+            console.log("***---------------------------------------- ** " + (i + 1));
+        }
+    }
+	  
+	  /* 按钮功能测试*/
+	  $("#addli").click(function(event) {
+/* Act on the event */
+		jm.begin_edit('root');
+	   
+	   var len = document.getElementById('text').innerHTML+='<li>内容1</li>';  
+		  var len = document.getElementById('demo1').innerHTML+=
+	'<li><img class="avatar" width="50px" height="50px" src="jquery\\demos\\img\\normal_1459.png"><em class="name">用户名4:</em><p class="comment">消息</p></li>';
+		  $("#dome1").scrollTop($("#dome1").scrollTop(500));
+		 
+	  });
+	  $("#savefile").click(function(event) {
+/* Act on the event */
+		save_file();
+	  });
+	  $("#openfile").click(function(event) {
+/* Act on the event */
+		 // document.getElementById("file_input").click();
+		  open_file();
+	  });
+	  $("#newmind").click(function(event) {
+/* Act on the event */
+		  jm.show(mind);
+	  });
+	 $("#add_node").click(function(event) {
+/* Act on the event */
+		  add_node();
+	 }); 
+	 $("#remove_node").click(function(event) {
+/* Act on the event */
+		  remove_node();
+	 }); 
+		
+	 $("#begin_edit").click(function(event) {
+/* Act on the event */
+		  begin_edit();
+	 }); 		
+	 $("#sendmessage").click(function(event) {
+/* Act on the event */
+		  sendmessage();
+	 }); 		
+		
+	function sendmessage(){
+		var uesrname='用户名';
+		var mess=$("#intext").val();
+		var len = document.getElementById('demo1').innerHTML+=
+			'<li><img class="avatar" width="50px" height="50px" src="jquery\\demos\\img\\normal_234.png"><em class="name">'+uesrname+':</em><p class="comment">'+mess+'</p></li>';
+		  $("#dome1").scrollTop($("#dome1").scrollTop()+50);
+		 document.all.tags("#intext").value="";
+		$("#intext").val("");
+		$('input')[0].value="";
+
+	}	
+		
+	function add_node(){
+        var selected_node = jm.get_selected_node(); // as parent of new node
+        if(!selected_node){alert('请先选择节点！');return;}
+        var nodeid = jsMind.util.uuid.newid();
+        var topic = '* Node_'+nodeid.substr(0,5)+' *';
+        var node = jm.add_node(selected_node, nodeid, topic);
+		jm.begin_edit(nodeid);
+    }
+		
+	function remove_node(){
+        var selected_id = jm.get_selected_node();
+        if(!selected_id){alert('请先选择节点');return;}
+        jm.remove_node(selected_id);
+    }
+  
+	function begin_edit(){
+		var selected_node = jm.get_selected_node(); // as parent of new node
+        if(!selected_node){alert('请先选择节点！');return;}	
+		jm.begin_edit(selected_node);
+	}
+		
+    function zoomIn() {
+        if (jm.view.zoomIn()) {
+            $('zoom-out-button').disabled = false;
+        } else {
+           $('zoom-in-button').disabled = true;
+        }
+    }
+		
+	function zoomOut() {
+        if (jm.view.zoomOut()) {
+            $('zoom-in-button').disabled = false;
+        } else {
+            $('zoom-out-button').disabled = true;
+        };
+    };
+		
+    function save_file(){
+        var mind_data = jm.get_data();
+        var mind_name = mind_data.meta.name;
+        var mind_str = jsMind.util.json.json2string(mind_data);
+        jsMind.util.file.save(mind_str,'text/jsmind',mind_name+'.jm');
+    }
+	  
+	    function open_file(){
+        var file_input = document.getElementById('file_input');
+        var files = file_input.files;
+        if(files.length > 0){
+            var file_data = files[0];
+            jsMind.util.file.read(file_data,function(jsmind_data, jsmind_name){
+                var mind1 = jsMind.util.json.string2json(jsmind_data);
+                if(!!mind1){
+                    jm.show(mind1);
+                }else{
+                    alert("无法打开导图文件，请检查文件格式。");
+                }
+            });
+        }else{
+            alert('请先选择文件！');
+        }
+    }
+		
+		  /*数据*/
+		var mind = {"meta":{"name":"jsMind","author":"opx","version":"0.4.3"},
+		"format":"node_array",
+		"data":[
+				{"id":"root","topic":"根节点","expanded":true,"isroot":true},
+				/*{"id":"c2b0236748ab7c53","topic":"bbbbbbbb","expanded":true,"parentid":"root","direction":"right"},
+				{"id":"c2b02457f1ccc433","topic":"dddddddd","expanded":true,"parentid":"c2b0236748ab7c53"},
+				{"id":"c2b023ecd0b810fb","topic":"cccccccccc","expanded":true,"parentid":"root","direction":"right"}*/
+			   ]};
+            var options = {
+                container:'jsmind_container',
+                editable:true,
+                theme:'clouds'
+            };
+            var jm = new jsMind(options);
+            jm.show(mind);
+			var mind_data = jm.get_data('node_array');			
+        	mind_string1 = jsMind.util.json.json2string(mind_data);
+        </script>
+  </body>
+</html>
